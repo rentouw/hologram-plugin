@@ -1,0 +1,27 @@
+name: Hologramplugin
+main: rentouw.hologramplugin.main.main
+version: 0.0.1
+author: rentouw
+description: >
+                This plugin makes holograms in minecraft.
+commands:
+   hghelp:
+      description: This shows all the commands for Hologram.
+      usage: /hghelp
+      permission: hg.help
+      permission-message: You don't have <permission>  
+   hgedit:
+      description: This edits the text on a hologram.
+      usage: /hgedit (hologram id) (change text)
+      permission: hg.edit
+      permission-message: You don't have <permission>  
+   hgcreate:
+      description: This makes a Hologram.
+      usage: /hgcreate (hologram id) (text) (x pos) (y pos) (z pos)
+      permission: hg.create
+      permission-message: You don't have <permission>  
+   hgdelete:
+      description: This delete's Hologram.
+      usage: /hgdelete
+      permission: hg.delete
+      permission-message: You don't have <permission>  
