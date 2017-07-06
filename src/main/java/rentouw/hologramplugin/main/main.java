@@ -10,7 +10,7 @@ public class main extends JavaPlugin {
 		// create ID.yml file in plugins/
 		rentouw.hologram.plugin.file.IDlist.writeToFile("ID LIST,DO NOT EDIT");
 		// Get command executor
-		//getCommand("hgdelte").setExecutor(new delete());
+		getCommand("hgdelete").setExecutor(new delete());
 		getCommand("hghelp").setExecutor(new help());
 		getCommand("hgedit").setExecutor(new edit());
 		getCommand("hgcreate").setExecutor(new create());
