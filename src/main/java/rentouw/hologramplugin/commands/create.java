@@ -15,6 +15,7 @@ import rentouw.hologram.plugin.file.*;
  * @author Rentouw
  */
 public class create implements CommandExecutor {
+	private static String data[] = new String[5];
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
@@ -32,8 +33,7 @@ public class create implements CommandExecutor {
 			int z = Integer.parseInt(args[4]);
 			player.sendMessage("start checkID");
 			String Sdata = IDlist.CheckID(id);
-			String data[] = Sdata.split(","); // 0 = x 1 = y 2 = z 3 = text 4 =
-												// info text
+			data = Sdata.split(","); // 0 = x 1 = y 2 = z 3 = text 4 = info text
 			player.sendMessage("CheckID worked and split");
 			if (data[4] == "true") {
 				Createholo.Create(text, x, y, z, player);
