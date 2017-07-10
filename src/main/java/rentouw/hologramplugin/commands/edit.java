@@ -6,7 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import rentouw.hologram.plugin.file.*;
+import rentouw.hologram.plugin.file.Createholo;
+import rentouw.hologram.plugin.file.Deleteholo;
 
 /**
  * Handler for the /hgedit command. parrameters: (hologram id) (edit text)

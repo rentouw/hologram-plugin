@@ -7,12 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
-//   					/hgcreate id text 103 64 105
+
 public class IDlist {
 
-	private static String stringBufferOfData[] = new String[50];
-	private static String filename = "plugins/ID.txt";
 	private static String data[] = new String[5];
+	private static String filename = "plugins/ID.txt";
+	private static String stringBufferOfData[] = new String[50];
 
 	public static String CheckID(String ID) {
 		Bukkit.getLogger().info("START CHECKID!");
@@ -25,11 +25,12 @@ public class IDlist {
 		data[3] = "nope"; // text
 		data[4] = "false"; // info text
 		Bukkit.getLogger().info("Set data to nope and false done");
-		if (fileRead && stringBufferOfData != null) {// if the read file was successfull
+		if (fileRead && stringBufferOfData != null) {// if the read file was
+														// successfull
 			Bukkit.getLogger().info("fileRead = true!");
 			for (int i = 0; i < stringBufferOfData.length; i++) {
 				String string = stringBufferOfData[i];
-				Bukkit.getLogger().info("String string = stringBufferOfData[i]; == " + string);
+				Bukkit.getLogger().info("String string = stringBufferOfData[" + i + "]; == " + string);
 				if (string == ID) {
 					Bukkit.getLogger().info("found id!");
 					data[0] = stringBufferOfData[(i + 1)]; // x
@@ -40,7 +41,7 @@ public class IDlist {
 				}
 			}
 			String Sdata = String.join(",", data);
-			Bukkit.getLogger().info("Sdata = !     " + Sdata);
+			Bukkit.getLogger().info("Sdata = !" + Sdata);
 			return Sdata;
 		} else {
 			Bukkit.getLogger().info("fileRead = false OR stringBufferOfData = null");
@@ -52,39 +53,35 @@ public class IDlist {
 
 	private static boolean readFile() {
 		Bukkit.getLogger().info(" start readfile!");
-		String line = "null";
 		BufferedReader bufferReader = null;
+		int i = 0;
 		try {
 			Bukkit.getLogger().info("try");
 			FileReader fileReader = new FileReader(filename);
 			bufferReader = new BufferedReader(fileReader);
-			//Bukkit.getLogger().info("bufferReader.readLine() = " + bufferReader.readLine());
+			// Bukkit.getLogger().info("bufferReader.readLine() = " +
+			// bufferReader.readLine());
 			Bukkit.getLogger().info("start testing stringBufferOfData");
 			stringBufferOfData[0] = bufferReader.readLine();
-			if (stringBufferOfData == null){
+
+			if (stringBufferOfData == null) {
 				Bukkit.getLogger().info("shit stringBufferOfData == null");
 			}
 			Bukkit.getLogger().info("start wile loop");
-			while (true){
-				line = bufferReader.readLine();
-				int a = stringBufferOfData.length;
-				stringBufferOfData[(a + 1)] = line;
-				Bukkit.getLogger().info("line = " + line);
-				Bukkit.getLogger().info("stringBufferOfData = " + stringBufferOfData);
-				if (line == null){
-					break;
-				}
+
+			for (String line; (line = bufferReader.readLine()) != null;) {
+				stringBufferOfData[i] = line;
+				i++;
 			}
-			Bukkit.getLogger().info("stringBufferOfData == " + stringBufferOfData);
-			
+
 		} catch (IOException e) {
 			Bukkit.getLogger().info("IOException");
 			return false;
-			
-		}finally {
+
+		} finally {
 			Bukkit.getLogger().info("finally");
 			try {
-				if (bufferReader != null){
+				if (bufferReader != null) {
 					Bukkit.getLogger().info("if (bufferReader != null)");
 					bufferReader.close();
 				}
@@ -101,53 +98,62 @@ public class IDlist {
 	public static void writeToFile(String info) {
 		Bukkit.getLogger().info(" start write!");
 		String text[] = info.split(",");
+		readFile();
 		BufferedWriter bufferedWriter = null;
-		try{
+		try {
 			FileWriter fileWriter = new FileWriter(filename);
 			bufferedWriter = new BufferedWriter(fileWriter);
-			
+
+			for (String string : stringBufferOfData) {
+				if (string !=null){
+				Bukkit.getLogger().info("String =" + string);
+				bufferedWriter.write(string);
+				bufferedWriter.newLine();
+				}
+			}
+
 			for (String string : text) {
 				Bukkit.getLogger().info("String =" + string);
 				bufferedWriter.write(string);
 				bufferedWriter.newLine();
 			}
-		} catch (IOException e){
+		} catch (IOException e) {
 			Bukkit.getLogger().info("IOException=" + e);
-		}finally{
+		} finally {
 			try {
-				if(bufferedWriter != null){
+				if (bufferedWriter != null) {
 					bufferedWriter.close();
 				}
-			} catch (IOException e){
+			} catch (IOException e) {
 				Bukkit.getLogger().info("IOException=" + e);
 			}
 		}
-		
+
 	}
+	
+	/**public static void replaceFileString(String textj, String change) throws IOException {
+	try {
+		// Assume default encoding.
+		FileWriter fileWriter = new FileWriter(filename);
 
-	public static void replaceFileString(String textj, String change) throws IOException {
-		try {
-			// Assume default encoding.
-			FileWriter fileWriter = new FileWriter(filename);
+		// Always wrap FileWriter in BufferedWriter.
+		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-			// Always wrap FileWriter in BufferedWriter.
-			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-			// Note that write() does not automatically
-			// append a newline character.
-			for (int j = 0; j < stringBufferOfData.length; j++) {
-				if (stringBufferOfData[j] == change) {
-					stringBufferOfData[j].replaceAll(change, textj);
-				}
+		// Note that write() does not automatically
+		// append a newline character.
+		for (int j = 0; j < stringBufferOfData.length; j++) {
+			if (stringBufferOfData[j] == change) {
+				stringBufferOfData[j].replaceAll(change, textj);
 			}
-			// Always close files.
-			bufferedWriter.close();
-			String info = String.join(",", stringBufferOfData);
-			writeToFile(info);
-		} catch (IOException ex) {
-			System.out.println("Error writing to file '" + filename + "'");
-			// Or we could just do this:
-			// ex.printStackTrace();
 		}
+		// Always close files.
+		bufferedWriter.close();
+		String info = String.join(",", stringBufferOfData);
+		writeToFile(info);
+	} catch (IOException ex) {
+		System.out.println("Error writing to file '" + filename + "'");
+		// Or we could just do this:
+		// ex.printStackTrace();
 	}
+}*/
 }

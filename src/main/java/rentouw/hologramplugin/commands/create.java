@@ -6,7 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import rentouw.hologram.plugin.file.*;
+import rentouw.hologram.plugin.file.Createholo;
+import rentouw.hologram.plugin.file.IDlist;
 
 /**
  * Handler for the /hgcreate command. parrameters: (hologram id) (Ur text) '(x
@@ -16,6 +17,7 @@ import rentouw.hologram.plugin.file.*;
  */
 public class create implements CommandExecutor {
 	private static String data[] = new String[5];
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {

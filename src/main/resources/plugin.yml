@@ -22,6 +22,6 @@ commands:
       permission-message: You don't have <permission>  
    hgdelete:
       description: This delete's Hologram.
-      usage: /hgdelete
+      usage: /hgdelete (hologram id)
       permission: hg.delete
       permission-message: You don't have <permission>  
