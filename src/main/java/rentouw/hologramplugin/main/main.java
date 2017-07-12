@@ -17,7 +17,7 @@ public class main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		// create ID.yml file in plugins/
-		rentouw.hologram.plugin.file.IDlist.writeToFile("ID LIST,DO NOT EDIT");
+		//rentouw.hologram.plugin.file.IDlist.writeToFile("ID LIST");
 		// Get command executor
 		getCommand("hgdelete").setExecutor(new delete());
 		getCommand("hghelp").setExecutor(new help());
