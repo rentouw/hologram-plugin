@@ -25,31 +25,28 @@ public class create implements CommandExecutor {
 			return false;
 		}
 		Player player = (Player) sender;
-		player.sendMessage("start checking");
 		if (args.length == 5) {
-			player.sendMessage("args == 5");
 			String id = args[0];
 			String text = args[1];
 			int x = Integer.parseInt(args[2]);
 			int y = Integer.parseInt(args[3]);
 			int z = Integer.parseInt(args[4]);
-			player.sendMessage("start checkID");
+			if (id.equals(text)) {
+				return false;
+			}
 			String Sdata = IDlist.CheckID(id);
 			data = Sdata.split(","); // 0 = x 1 = y 2 = z 3 = text 4 = info text
-			player.sendMessage("CheckID worked and split");
-			if (data[4] == "true") {
+			if (data[4].equals("true")) {
 				Createholo.Create(text, x, y, z, player);
-				player.sendMessage("done");
 			} else {
 				Createholo.Create(text, x, y, z, player);
 				String info = (id + "," + x + "," + y + "," + z + "," + text);
 				IDlist.writeToFile(info);
-				player.sendMessage("done");
 			}
 			return true;
 		} else {
-			player.sendMessage("error");
-			return true;
+			player.sendMessage("[HOLOGRAM]:: Create needs 5 things not " + args.length);
+			return false;
 		}
 	}
 }

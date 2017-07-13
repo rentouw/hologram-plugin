@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
 public class IDlist {
 
 	private static String data[] = new String[5];
-	private static String filename = "plugins/ID.txt";
+	private static String filename = "plugins/ID.yml";
 	private static String stringBufferOfData[] = new String[50];
 
 	public static String CheckID(String ID) {
@@ -24,26 +24,26 @@ public class IDlist {
 		data[4] = "false"; // info text
 		if (fileRead && stringBufferOfData != null) {// if the read file was
 														// successfull
-			Bukkit.getLogger().info("String ID = " + ID);
-			for (int i = 0; i < stringBufferOfData.length; i++) {
-				String string = stringBufferOfData[i];
-				Bukkit.getLogger().info("String string = stringBufferOfData[" + i + "]; == " + string);
-				if (string == (ID + " ")) {
-					Bukkit.getLogger().info("found id!");
-					data[0] = stringBufferOfData[(i + 1)]; // x
-					data[1] = stringBufferOfData[(i + 2)]; // y
-					data[2] = stringBufferOfData[(i + 3)]; // z
-					data[3] = stringBufferOfData[(i + 4)]; // text
-					data[4] = "true"; // info text
+			try {
+				for (int i = 0; i < stringBufferOfData.length; i++) {
+					String string = stringBufferOfData[i];
+					if (!string.equals("null") || string != null) {
+						if (string.equals(ID)) {
+							data[0] = stringBufferOfData[(i + 1)]; // x
+							data[1] = stringBufferOfData[(i + 2)]; // y
+							data[2] = stringBufferOfData[(i + 3)]; // z
+							data[3] = stringBufferOfData[(i + 4)]; // text
+							data[4] = "true"; // info text
+						}
+					}
 				}
+			} catch (NullPointerException e) {
+				Bukkit.getLogger().info(e.toString());
 			}
 			String Sdata = String.join(",", data);
-			Bukkit.getLogger().info("Sdata = !" + Sdata);
 			return Sdata;
 		} else {
-			Bukkit.getLogger().info("fileRead = false OR stringBufferOfData = null");
 			String Sdata = String.join(",", data);
-			Bukkit.getLogger().info("Sdata = !     " + Sdata);
 			return Sdata;
 		}
 	}
@@ -55,11 +55,6 @@ public class IDlist {
 			FileReader fileReader = new FileReader(filename);
 			bufferReader = new BufferedReader(fileReader);
 			stringBufferOfData[0] = bufferReader.readLine();
-
-			if (stringBufferOfData == null) {
-				Bukkit.getLogger().info("shit stringBufferOfData == null");
-			}
-
 			for (String line; (line = bufferReader.readLine()) != null;) {
 				stringBufferOfData[i] = line;
 				i++;
@@ -70,10 +65,8 @@ public class IDlist {
 			return false;
 
 		} finally {
-			Bukkit.getLogger().info("finally");
 			try {
 				if (bufferReader != null) {
-					Bukkit.getLogger().info("if (bufferReader != null)");
 					bufferReader.close();
 				}
 			} catch (IOException e) {
@@ -93,9 +86,9 @@ public class IDlist {
 			bufferedWriter = new BufferedWriter(fileWriter);
 
 			for (String string : stringBufferOfData) {
-				if (string !=null){
-				bufferedWriter.write(string);
-				bufferedWriter.newLine();
+				if (string != null) {
+					bufferedWriter.write(string);
+					bufferedWriter.newLine();
 				}
 			}
 

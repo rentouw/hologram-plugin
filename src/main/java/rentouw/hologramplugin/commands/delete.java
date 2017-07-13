@@ -25,12 +25,12 @@ public class delete implements CommandExecutor {
 			String Sdata = rentouw.hologram.plugin.file.IDlist.CheckID(id);
 			String data[] = Sdata.split(","); // 0 = x 1 = y 2 = z 3 = naam 4 =
 												// info text
-			//if (data[4] == "true") {
-				rentouw.hologram.plugin.file.Deleteholo.Delete(id, Integer.parseInt(data[0]), Integer.parseInt(data[1]),
+			if (data[4].equals("true")) {
+				rentouw.hologram.plugin.file.Deleteholo.Delete(Integer.parseInt(data[0]), Integer.parseInt(data[1]),
 						Integer.parseInt(data[2]), player);
-			//} else {
-			//	player.sendMessage("[HOLOGRAM]::There is no " + id + " hologram.");
-			//}
+			} else {
+				player.sendMessage("[HOLOGRAM]::There is no " + id + " hologram.");
+			}
 			return true;
 		} else {
 			return false;

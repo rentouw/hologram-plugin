@@ -28,13 +28,13 @@ public class edit implements CommandExecutor {
 			String Sdata = rentouw.hologram.plugin.file.IDlist.CheckID(id);
 			String data[] = Sdata.split(","); // 0 = x 1 = y 2 = z 3 = naam 4 =
 												// info text
-			Deleteholo.Delete(id, Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]),
-					player);
+			Deleteholo.Delete(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]), player);
 			Createholo.Create(text, Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]),
 					player);
 			player.sendMessage("[HOLOGRAM]:: The text of " + id + " is edited from " + data[3] + " to " + text);
 			return true;
 		} else {
+			player.sendMessage("[HOLOGRAM]:: hgedit needs 2 things not " + args.length);
 			return false;
 		}
 	}
